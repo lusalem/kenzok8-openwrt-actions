@@ -5,7 +5,7 @@
 # https://github.com/kenzok8
 #=================================================
 
-name: ctc-19.07
+name: ctc-18.06
 
 on: 
   release:
@@ -42,21 +42,17 @@ jobs:
     - name: 克隆源代码
       env: 
         REPO_URL: https://github.com/project-openwrt/openwrt
-        REPO_BRANCH: master
+        REPO_BRANCH: openwrt-18.06
       run: git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
       
     - name: 更新提要
       run: cd openwrt && ./scripts/feeds update -a && ./scripts/feeds install -a
-    
-    - name: Costom配置文件
-      run: |
-          cd openwrt
-          rm -f .config
-          cp ../ctc .config
           
     - name: 恢复配置
       run: |
           cd openwrt
+          rm -f .config
+          cp ../ctc .config      
           make defconfig
 
     - name: 下载dl文件包

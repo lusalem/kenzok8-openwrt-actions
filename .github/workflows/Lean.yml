@@ -5,7 +5,7 @@
 # https://github.com/kenzok8
 #=================================================
 
-name: ctc-19.07
+name: Lean-64
 
 on: 
   release:
@@ -41,8 +41,8 @@ jobs:
 
     - name: 克隆源代码
       env: 
-        REPO_URL: https://github.com/project-openwrt/openwrt
-        REPO_BRANCH: openwrt-18.06
+        REPO_URL: https://github.com/coolsnowwolf/lede
+        REPO_BRANCH: master
       run: git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
       
     - name: 更新提要
@@ -51,13 +51,15 @@ jobs:
     - name: 自定义安装源
       working-directory: ./openwrt
       run: |
+        git clone https://github.com/Lienol/openwrt-package package/lienol
         git clone https://github.com/kenzok8/litte package/litte
+        
     
     - name: Costom配置文件
       run: |
           cd openwrt
           rm -f .config
-          cp ../ctc .config
+          cp ../Lean .config
           
     - name: 恢复配置
       run: |
@@ -87,5 +89,5 @@ jobs:
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
-        name: ctc-x64
+        name: Lean-x64
         path: ./artifact/

@@ -47,13 +47,19 @@ jobs:
       
     - name: 更新提要
       run: cd openwrt && ./scripts/feeds update -a && ./scripts/feeds install -a
+      
+    - name: 自定义安装源
+      working-directory: ./openwrt
+      run: |
+        git clone https://github.com/kenzok8/litte package/litte         
           
     - name: 恢复配置
       run: |
           cd openwrt
           rm -f .config
-          cp ../ctc .config      
+          cp ../openwrt-config/ctc .config 
           make defconfig
+          
 
     - name: 下载dl文件包
       run: |

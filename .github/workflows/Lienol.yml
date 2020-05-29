@@ -47,12 +47,18 @@ jobs:
       
     - name: 更新提要
       run: cd openwrt && ./scripts/feeds update -a && ./scripts/feeds install -a
+      
+    - name: 自定义安装源
+      working-directory: ./openwrt
+      run: |
+        git clone https://github.com/kenzok8/litte package/litte     
     
     - name: Costom配置文件
       run: |
           cd openwrt
           rm -f .config
-          cp ../Lienol .config
+          cp ../openwrt-config/Lienol .config
+        
           
     - name: 恢复配置
       run: |

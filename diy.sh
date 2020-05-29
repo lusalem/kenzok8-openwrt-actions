@@ -1,13 +1,14 @@
 #!/bin/bash
 #=================================================
 # Description: Build OpenWrt using GitHub Actions
+# Lisence: MIT
 # Author: kenzo
 # https://github.com/kenzok8
 #=================================================
 取消注释提供源
 sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 添加自定义源
-sed -i '$a src-git litte https://github.com/kenzok8/litte' feeds.conf.default
+sed -i '$a src-git litte https://github.com/kenzok8/litte.git' feeds.conf.default
 rm -rf package/lienol/luci-app-passwall && rm -rf package/lean/luci-app-ssr-plus && rm -rf package/litte/luci-app-ssr-plus
 rm -rf package/litte/microsocks && rm -rf package/litte/redsocks2 && rm -rf package/litte/tcpping
 rm -rf package/litte/adguardhome && rm -rf package/litte/luci-app-adguardhome
@@ -20,4 +21,4 @@ sed -i "s/DISTRIB_DESCRIPTION.*/DISTRIB_DESCRIPTION='%D by kenzo'/g" package/bas
 sed -i "s/# REVISION:=x/REVISION:= $date/g" include/version.mk
 cp -f default-settings package/*/*/default-settings/files/zzz-default-settings
 ./scripts/feeds update -a
-./scripts/feeds install -a
+./scripts/feeds install

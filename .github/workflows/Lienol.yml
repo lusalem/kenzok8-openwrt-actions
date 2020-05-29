@@ -57,7 +57,7 @@ jobs:
       run: |
           cd openwrt
           rm -f .config
-          cp ../openwrt-config/Lienol .config
+          cp ../Lienol .config
         
           
     - name: 恢复配置
